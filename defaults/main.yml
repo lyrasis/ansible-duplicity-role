@@ -1,0 +1,30 @@
+---
+
+# this will need to be overidden
+# values are added to /etc/environment
+duplicity_environment:
+  SWIFT_USERNAME: ""
+  SWIFT_PASSWORD: ""
+  SWIFT_AUTHURL: ""
+  PASSPHRASE: ""
+  SIGN_PASSPHRASE: ""
+
+# supply scripts for duplicity cron jobs in ~playbook/templates
+# these are copied using the `template` module so can use variables
+duplicity_backup_scripts: []
+
+# create cron jobs for duplicity
+duplicity_backup_jobs: []
+
+# email address for duplicity notifications
+duplicity_email_to: ""
+
+# duplicity download address and version
+duplicity_download_path: "/home/{{ ansible_ssh_user }}"
+duplicity_download_url: https://code.launchpad.net/duplicity/0.7-series/0.7.01/+download/duplicity-0.7.01.tar.gz
+duplicity_version: duplicity-0.7.01
+
+# duplicity configuration
+duplicity_src: /
+duplicity_dest: ""
+duplicity_keep: 21

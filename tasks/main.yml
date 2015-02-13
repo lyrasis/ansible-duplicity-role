@@ -1,0 +1,120 @@
+---
+
+# tasks to install duplicity
+- name: update apt package cache
+  apt:
+    update_cache=yes
+  tags:
+    - duplicity
+
+- name: install all those dependencies
+  apt:
+    pkg={{item}}
+    state=present
+  with_items:
+    - python-pip
+    - gnupg2
+    - ncftp
+    - python-paramiko
+    - python-pycryptopp
+    - lftp
+    - python-boto
+    - python-dev  
+    - librsync-dev 
+    - python-lockfile
+    - mailutils
+  tags:
+    - duplicity
+
+- name: pip install python-swiftclient
+  pip:
+    name=python-swiftclient
+    state=present
+  tags:
+    - duplicity
+
+- name: pip install python-keystoneclient
+  pip:
+    name=python-keystoneclient
+    state=present
+  tags:
+    - duplicity
+
+- name: creates duplicity dir
+  file:
+    path="{{ duplicity_download_path }}/duplicity"
+    state=directory
+  tags:
+    - duplicity
+
+- name: download the duplicity .tar.gz from launchpad
+  get_url:
+    url={{ duplicity_download_url }}
+    dest="{{ duplicity_download_path }}/duplicity.tar.gz"
+  tags:
+    - duplicity
+
+- name: untar the duplicity tar.gz
+  unarchive: 
+    src="{{ duplicity_download_path }}/duplicity.tar.gz"
+    dest=/home/lyrasis/duplicity
+    copy=no
+  tags:
+    - duplicity
+
+# sorry, this isn't idempotent
+# there's probably a way to do that
+
+- name: python install duplicity
+  shell: >
+    python setup.py install
+    chdir={{ duplicity_download_path }}/duplicity/{{ duplicity_version }}
+  tags:
+    - duplicity
+
+- name: make sure /var/log/duplicity.log is in and writable
+  file:
+    path=/var/log/duplicity.log
+    owner=root
+    group=root
+    mode=0755
+    state=touch
+  tags:
+    - duplicity
+
+# ADD ENV
+- name: add duplicity environment variables
+  lineinfile:
+    dest=/etc/environment
+    line="export {{ item.key }}='{{ item.value }}'"
+    regexp="^export {{ item.key }}="
+    owner=root
+    group=root
+  with_dict: duplicity_environment
+  tags:
+    - duplicity
+
+# ADD SCRIPTS
+- name: add any duplicity scripts
+  template:
+    src=templates/{{ item.script }}
+    dest={{ item.dest }}
+    backup=yes
+    owner={{ item.owner }}
+    group={{ item.group }}
+    mode={{ item.mode }}
+  with_items: duplicity_backup_scripts
+  tags:
+    - duplicity
+
+# ADD JOBS
+- name: add any crontab jobs for duplicity
+  cron:
+    user={{ item.user }}
+    name={{ item.name }}
+    hour={{ item.hour }}
+    minute={{ item.minute }}
+    job={{ item.job }}
+  with_items: duplicity_backup_jobs
+  tags:
+    - duplicity
