@@ -50,14 +50,15 @@
 - name: download the duplicity .tar.gz from launchpad
   get_url:
     url={{ duplicity_download_url }}
-    dest="{{ duplicity_download_path }}/duplicity.tar.gz"
+    dest="{{ duplicity_download_path }}/{{ duplicity_version }}.tar.gz"
+  register: duplicity_download
   tags:
     - duplicity
 
 - name: untar the duplicity tar.gz
   unarchive: 
-    src="{{ duplicity_download_path }}/duplicity.tar.gz"
-    dest=/home/lyrasis/duplicity
+    src="{{ duplicity_download_path }}/{{ duplicity_version }}.tar.gz"
+    dest="{{ duplicity_download_path }}/duplicity"
     copy=no
   tags:
     - duplicity
@@ -69,7 +70,7 @@
   shell: >
     python setup.py install
     chdir={{ duplicity_download_path }}/duplicity/{{ duplicity_version }}
-    creates=/usr/local/bin/duplicity
+  when: duplicity_download.changed
   tags:
     - duplicity
 
