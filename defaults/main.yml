@@ -27,4 +27,4 @@ duplicity_version: duplicity-0.7.01
 # duplicity configuration
 duplicity_src: /
 duplicity_dest: ""
-duplicity_keep: 21
+duplicity_keep: 7
