@@ -23,8 +23,22 @@
     - librsync-dev 
     - python-lockfile
     - mailutils
+    - build-essential
   tags:
     - duplicity
+
+- name: make sure the latest pip is in place
+  shell: >
+    pip install --upgrade pip
+  tags:
+    - duplicity
+
+- name: make sure the latest pip virtualenv is in place
+  shell: >
+    pip install --upgrade virtualenv
+  tags:
+    - duplicity
+
 
 - name: pip install python-swiftclient
   pip:
