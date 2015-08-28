@@ -27,18 +27,13 @@
   tags:
     - duplicity
 
-- name: make sure the latest pip is in place
-  shell: >
-    pip install --upgrade pip
-  tags:
-    - duplicity
+- pip:
+    name=pip
+    state=latest
 
-- name: make sure the latest pip virtualenv is in place
-  shell: >
-    pip install --upgrade virtualenv
-  tags:
-    - duplicity
-
+- pip: 
+    name=virtualenv
+    state=latest
 
 - name: pip install python-swiftclient
   pip:
