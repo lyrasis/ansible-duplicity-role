@@ -23,8 +23,17 @@
     - librsync-dev 
     - python-lockfile
     - mailutils
+    - build-essential
   tags:
     - duplicity
+
+- pip:
+    name=pip
+    state=latest
+
+- pip: 
+    name=virtualenv
+    state=latest
 
 - name: pip install python-swiftclient
   pip:
