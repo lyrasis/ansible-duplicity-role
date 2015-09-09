@@ -18,6 +18,22 @@ Example Playbook
 
 `ansible-playbook -i ./inventory/hosts ./duplicity.yml -K --tags install`
 
+Variables
+----------------
+
+Most variables are stored in the other playbooks with the follwing exceptions:
+
+```
+duplicity_download_path: where you want to put the tar.gz file
+duplicity_download_url: the Full URL to the tar.gz for the 0.7 file.
+duplicity_version: Version of Duplicity
+```
+
+```
+duplicity_src: The list of directories to backup
+duplicity_dest: The swift://URL of the backup site
+duplicity_keep: Used for the "--full-if-older-than" switch in Duplicity
+```
 ...
 
 Author Information
