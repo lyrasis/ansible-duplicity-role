@@ -16,6 +16,9 @@ duplicity_backup_scripts: []
 # create cron jobs for duplicity
 duplicity_backup_jobs: []
 
+# How many old backup sets to keep
+duplicity_all_but_full: 1
+
 # email address for duplicity notifications
 duplicity_email_to: ""
 
