@@ -33,6 +33,7 @@ duplicity_version: Version of Duplicity
 duplicity_src: The list of directories to backup
 duplicity_dest: The swift://URL of the backup site
 duplicity_keep: Used for the "--full-if-older-than" switch in Duplicity
+duplicity_all_but_full: Used to tell how many old backup sets to keep
 ```
 ...
 
