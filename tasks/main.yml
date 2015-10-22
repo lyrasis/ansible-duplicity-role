@@ -30,10 +30,14 @@
 - pip:
     name=pip
     state=latest
+  tags:
+    - duplicity
 
 - pip: 
     name=virtualenv
     state=latest
+  tags:
+    - duplicity
 
 - name: pip install python-swiftclient
   pip:
@@ -126,6 +130,7 @@
     name="{{ item.name }}"
     hour="{{ item.hour }}"
     minute="{{ item.minute }}"
+    weekday="{{ item.weekday }}"
     job="{{ item.job }}"
   with_items: duplicity_backup_jobs
   tags:
