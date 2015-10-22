@@ -30,10 +30,14 @@
 - pip:
     name=pip
     state=latest
+  tags:
+    - duplicity
 
 - pip: 
     name=virtualenv
     state=latest
+  tags:
+    - duplicity
 
 - name: pip install python-swiftclient
   pip:
