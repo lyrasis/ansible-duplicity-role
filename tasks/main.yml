@@ -130,7 +130,7 @@
     name="{{ item.name }}"
     hour="{{ item.hour }}"
     minute="{{ item.minute }}"
-    weekday="{{ item.weekday }}"
+    weekday="{{ item.weekday | default('*') }}"
     job="{{ item.job }}"
   with_items: duplicity_backup_jobs
   tags:
