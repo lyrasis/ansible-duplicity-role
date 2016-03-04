@@ -1,0 +1,16 @@
+---
+
+galaxy_info:
+  author: Mark Cooper
+  company: LYRASIS
+  description: "Install and configure Duplicity."
+  min_ansible_version: 1.9.4
+  license: MIT
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - server
+
+dependencies: []
