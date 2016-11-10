@@ -19,8 +19,8 @@
     - python-pycryptopp
     - lftp
     - python-boto
-    - python-dev  
-    - librsync-dev 
+    - python-dev
+    - librsync-dev
     - python-lockfile
     - mailutils
     - build-essential
@@ -33,7 +33,7 @@
   tags:
     - duplicity
 
-- pip: 
+- pip:
     name=virtualenv
     state=latest
   tags:
@@ -69,7 +69,7 @@
     - duplicity
 
 - name: untar the duplicity tar.gz
-  unarchive: 
+  unarchive:
     src="{{ duplicity_download_path }}/{{ duplicity_version }}.tar.gz"
     dest="{{ duplicity_download_path }}/duplicity"
     copy=no
@@ -106,7 +106,7 @@
     regexp="^export {{ item.key }}="
     owner=root
     group=root
-  with_dict: duplicity_environment
+  with_dict: "{{ duplicity_environment }}"
   tags:
     - duplicity
 
@@ -119,7 +119,7 @@
     owner="{{ item.owner }}"
     group="{{ item.group }}"
     mode="{{ item.mode }}"
-  with_items: duplicity_backup_scripts
+  with_items: "{{ duplicity_backup_scripts }}"
   tags:
     - duplicity
 
@@ -132,6 +132,6 @@
     minute="{{ item.minute }}"
     weekday="{{ item.weekday | default('*') }}"
     job="{{ item.job }}"
-  with_items: duplicity_backup_jobs
+  with_items: "{{ duplicity_backup_jobs }}"
   tags:
     - duplicity
