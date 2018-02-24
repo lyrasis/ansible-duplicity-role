@@ -25,7 +25,7 @@ duplicity_email_to: ""
 # duplicity download address and version
 duplicity_download_path: "/home/{{ ansible_ssh_user }}"
 duplicity_download_url: https://code.launchpad.net/duplicity/0.7-series/0.7.15/+download/duplicity-0.7.15.tar.gz
-duplicity_version: 0.7.15
+duplicity_version: 0.7.16
 
 # duplicity configuration
 duplicity_src: /
