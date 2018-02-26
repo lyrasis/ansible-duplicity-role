@@ -23,7 +23,7 @@ duplicity_all_but_full: 1
 duplicity_email_to: ""
 
 # duplicity download address and version
-duplicity_download_path: "/home/{{ ansible_user }}"
+duplicity_download_path: "/home/{{ lookup('env','USER') }}"
 duplicity_download_url: https://code.launchpad.net/duplicity/0.7-series/0.7.17/+download/duplicity-0.7.17.tar.gz
 duplicity_version: 0.7.17
 
