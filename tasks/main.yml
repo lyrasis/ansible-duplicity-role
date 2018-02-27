@@ -53,6 +53,13 @@
   tags:
     - duplicity
 
+ - name: pip install fasteners
+  pip:
+    name=fasteners
+    state=present
+  tags:
+    - duplicity
+
 - name: creates duplicity dir
   file:
     path="{{ duplicity_download_path }}/duplicity"
@@ -75,6 +82,7 @@
     copy=no
   tags:
     - duplicity
+  ignore_errors: '{{ ansible_check_mode }}'
 
 # sorry, this isn't idempotent
 # there's probably a way to do that
@@ -82,7 +90,7 @@
 - name: python install duplicity
   shell: >
     python setup.py install
-    chdir={{ duplicity_download_path }}/duplicity/{{ duplicity_version }}
+    chdir={{ duplicity_download_path }}/duplicity/{{ duplicity_version }}/
   when: duplicity_download.changed
   tags:
     - duplicity
