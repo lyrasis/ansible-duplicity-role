@@ -27,38 +27,17 @@
   tags:
     - duplicity
 
-- pip:
-    name=pip
-    state=latest
-  tags:
-    - duplicity
-
-- pip:
-    name=virtualenv
-    state=latest
-  tags:
-    - duplicity
-
-- name: pip install python-swiftclient
+- name: Install pip dependencies
   pip:
-    name=python-swiftclient
-    state=present
-  tags:
-    - duplicity
-
-- name: pip install python-keystoneclient
-  pip:
-    name=python-keystoneclient
-    state=present
-  tags:
-    - duplicity
-
- - name: pip install fasteners
-  pip:
-    name=fasteners
-    state=present
-  tags:
-    - duplicity
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { name: "pip", state: "latest" }
+    - { name: "virtualenv", state: "latest" }
+    - { name: "python-swiftclient", state: "present" }
+    - { name: "python-memcached", state: "present" }
+    - { name: "python-keystoneclient", state: "present" }
+    - { name: "fasteners", state: "present" }
 
 - name: creates duplicity dir
   file:
